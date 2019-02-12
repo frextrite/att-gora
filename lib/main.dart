@@ -18,6 +18,20 @@ class Todo extends StatefulWidget {
 }
 
 class _TodoState extends State<Todo> {
+  FocusNode focusNewTodo;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNewTodo = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    focusNewTodo.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +39,7 @@ class _TodoState extends State<Todo> {
         title: Text('Todo'),
       ),
       body: TextField(
+        focusNode: focusNewTodo,
         decoration:
             InputDecoration(border: InputBorder.none, hintText: 'att gora'),
       ),
