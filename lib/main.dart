@@ -24,6 +24,10 @@ class _TodoState extends State<Todo> {
       appBar: AppBar(
         title: Text('Todo'),
       ),
+      body: TextField(
+        decoration:
+            InputDecoration(border: InputBorder.none, hintText: 'att gora'),
+      ),
     );
   }
 }
