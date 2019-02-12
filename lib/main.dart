@@ -38,25 +38,42 @@ class _TodoState extends State<Todo> {
     super.dispose();
   }
 
+  Widget _buildTodoList() {
+    return ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemCount: todosList.length,
+      itemBuilder: (context, i) {
+        return ListTile(
+          title: Text(todosList[i]),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo'),
-      ),
-      body: TextField(
-        controller: controllerTodo,
-        focusNode: focusNewTodo,
-        decoration:
-            InputDecoration(border: InputBorder.none, hintText: 'att gora'),
-        onSubmitted: (text) {
-          setState(() {
-            todosList.add(text);
-          });
-          controllerTodo.clear();
-          print('$todosList');
-        },
-      ),
+        appBar: AppBar(
+          title: Text('Todo'),
+        ),
+        body: new Column(children: <Widget>[
+          TextField(
+            controller: controllerTodo,
+            focusNode: focusNewTodo,
+            decoration:
+                InputDecoration(border: InputBorder.none, hintText: 'att gora'),
+            onSubmitted: (text) {
+              setState(() {
+                todosList.add(text);
+              });
+              controllerTodo.clear();
+              print('$todosList');
+            },
+          ),
+          // _buildTodoList(),
+          new Expanded(child: _buildTodoList())
+        ]
+      )
     );
   }
 }
