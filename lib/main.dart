@@ -43,10 +43,22 @@ class _TodoState extends State<Todo> {
       padding: const EdgeInsets.all(16.0),
       itemCount: todosList.length,
       itemBuilder: (context, i) {
-        return ListTile(
-          title: Text(todosList[i]),
+        return Dismissible(
+          key: Key(todosList[i]),
+          onDismissed: (direction) {
+            Scaffold
+              .of(context)
+              .showSnackBar(SnackBar(content: Text(todosList[i]),));
+            setState(() {
+              todosList.removeAt(i);
+            });
+          },
+          child: ListTile(
+            title: Text(todosList[i]),
+          )
         );
       },
+        
     );
   }
 
