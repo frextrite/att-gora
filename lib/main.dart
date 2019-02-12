@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 void main() => runApp(TodoApp());
 
@@ -18,12 +19,14 @@ class Todo extends StatefulWidget {
 }
 
 class _TodoState extends State<Todo> {
+  List<String> todosList;
   FocusNode focusNewTodo;
   TextEditingController controllerTodo;
 
   @override
   void initState() {
     super.initState();
+    todosList = [];
     focusNewTodo = FocusNode();
     controllerTodo = TextEditingController();
   }
@@ -46,6 +49,13 @@ class _TodoState extends State<Todo> {
         focusNode: focusNewTodo,
         decoration:
             InputDecoration(border: InputBorder.none, hintText: 'att gora'),
+        onSubmitted: (text) {
+          setState(() {
+            todosList.add(text);
+          });
+          controllerTodo.clear();
+          print('$todosList');
+        },
       ),
     );
   }
