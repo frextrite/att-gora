@@ -19,15 +19,18 @@ class Todo extends StatefulWidget {
 
 class _TodoState extends State<Todo> {
   FocusNode focusNewTodo;
+  TextEditingController controllerTodo;
 
   @override
   void initState() {
     super.initState();
     focusNewTodo = FocusNode();
+    controllerTodo = TextEditingController();
   }
 
   @override
   void dispose() {
+    controllerTodo.dispose();
     focusNewTodo.dispose();
     super.dispose();
   }
@@ -39,6 +42,7 @@ class _TodoState extends State<Todo> {
         title: Text('Todo'),
       ),
       body: TextField(
+        controller: controllerTodo,
         focusNode: focusNewTodo,
         decoration:
             InputDecoration(border: InputBorder.none, hintText: 'att gora'),
