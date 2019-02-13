@@ -21,12 +21,14 @@ class Todo extends StatefulWidget {
 class _TodoState extends State<Todo> {
   String _lastDeleted;
   List<String> todosList;
+  Map<String, bool> isDone;
   FocusNode focusNewTodo;
   TextEditingController controllerTodo;
 
   @override
   void initState() {
     super.initState();
+    isDone = {};
     _lastDeleted = '';
     todosList = [];
     focusNewTodo = FocusNode();
@@ -68,13 +70,19 @@ class _TodoState extends State<Todo> {
               todosList.removeAt(i);
             });
           },
-          child: ListTile(
+          child: CheckboxListTile(
             title: Text(
               todosList[i],
               style: TextStyle(
                 fontSize: 18.0,
               ),
             ),
+            value: isDone[todosList[i]],
+            onChanged: (value) {
+              setState(() {
+                isDone[todosList[i]] = value;
+              });
+            },
           ),
         );
       },
@@ -120,6 +128,7 @@ class _TodoState extends State<Todo> {
                   onSubmitted: (text) {
                     setState(() {
                       todosList.add(text);
+                      isDone[text] = false;
                     });
                     controllerTodo.clear();
                     print('$todosList');
