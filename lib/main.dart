@@ -19,6 +19,7 @@ class Todo extends StatefulWidget {
 }
 
 class _TodoState extends State<Todo> {
+  String _lastDeleted;
   List<String> todosList;
   FocusNode focusNewTodo;
   TextEditingController controllerTodo;
@@ -26,6 +27,7 @@ class _TodoState extends State<Todo> {
   @override
   void initState() {
     super.initState();
+    _lastDeleted = '';
     todosList = [];
     focusNewTodo = FocusNode();
     controllerTodo = TextEditingController();
@@ -48,9 +50,21 @@ class _TodoState extends State<Todo> {
             Scaffold.of(context).showSnackBar(
               SnackBar(
                 content: Text(todosList[i]),
+                action: SnackBarAction(
+                  label: 'Undo',
+                  onPressed: () {
+                    if (_lastDeleted != '') {
+                      setState(() {
+                        todosList.add(_lastDeleted);
+                        _lastDeleted = '';
+                      });
+                    }
+                  },
+                ),
               ),
             );
             setState(() {
+              _lastDeleted = todosList[i];
               todosList.removeAt(i);
             });
           },
