@@ -71,6 +71,7 @@ class _TodoState extends State<Todo> {
             });
           },
           child: CheckboxListTile(
+            activeColor: Colors.black,
             title: Text(
               todosList[i],
               style: TextStyle(
@@ -146,6 +147,7 @@ class _TodoState extends State<Todo> {
           FocusScope.of(context).requestFocus(focusNewTodo);
         },
         child: Icon(Icons.add),
+        backgroundColor: Colors.black,
       ),
     );
   }
