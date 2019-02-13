@@ -62,46 +62,52 @@ class _TodoState extends State<Todo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Todo'),
-          backgroundColor: Color(0xFF727372),
+      appBar: AppBar(
+        title: Text('Todo'),
+        backgroundColor: Color(0xFF727372),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFEAEBE9),
         ),
-        body: Container(
-            decoration: BoxDecoration(
-              color: Color(0xFFEAEBE9),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Color(0xFFD3D4D2),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(5.0)),
+                child: TextField(
+                  cursorColor: Colors.black38,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.black54,
+                  ),
+                  controller: controllerTodo,
+                  focusNode: focusNewTodo,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: InputBorder.none,
+                      hintText: 'What do you wish to do?',
+                      hintStyle: TextStyle(
+                        color: Colors.black26,
+                      )),
+                  onSubmitted: (text) {
+                    setState(() {
+                      todosList.add(text);
+                    });
+                    controllerTodo.clear();
+                    print('$todosList');
+                  },
+                ),
+              ),
             ),
-            child: Column(children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFFD3D4D2),
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(5.0)),
-                      child: TextField(
-                        cursorColor: Colors.black38,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.black54,
-                        ),
-                        controller: controllerTodo,
-                        focusNode: focusNewTodo,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10.0),
-                            border: InputBorder.none,
-                            hintText: 'What do you wish to do?',
-                            hintStyle: TextStyle(
-                              color: Colors.black26,
-                            )),
-                        onSubmitted: (text) {
-                          setState(() {
-                            todosList.add(text);
-                          });
-                          controllerTodo.clear();
-                          print('$todosList');
-                        },
-                      ))),
-              Expanded(child: _buildTodoList())
-            ])));
+            Expanded(child: _buildTodoList())
+          ],
+        ),
+      ),
+    );
   }
 }
