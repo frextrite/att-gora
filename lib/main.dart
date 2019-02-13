@@ -69,7 +69,12 @@ class _TodoState extends State<Todo> {
             });
           },
           child: ListTile(
-            title: Text(todosList[i]),
+            title: Text(
+              todosList[i],
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
           ),
         );
       },
