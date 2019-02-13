@@ -64,41 +64,42 @@ class _TodoState extends State<Todo> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Todo'),
+          backgroundColor: Color(0xFF727372),
         ),
         body: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFEAEBE9),
-          ),
-          child: Column(children: <Widget>[
-          Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Color(0xFFD3D4D2),
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(5.0)),
-                  child: TextField(
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black54,
-                    ),
-                    controller: controllerTodo,
-                    focusNode: focusNewTodo,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'att gora',
-                        hintStyle: TextStyle(
-                          color: Colors.black26,
-                        )),
-                    onSubmitted: (text) {
-                      setState(() {
-                        todosList.add(text);
-                      });
-                      controllerTodo.clear();
-                      print('$todosList');
-                    },
-                  ))),
-          Expanded(child: _buildTodoList())
-        ])));
+            decoration: BoxDecoration(
+              color: Color(0xFFEAEBE9),
+            ),
+            child: Column(children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xFFD3D4D2),
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0)),
+                      child: TextField(
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black54,
+                        ),
+                        controller: controllerTodo,
+                        focusNode: focusNewTodo,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'att gora',
+                            hintStyle: TextStyle(
+                              color: Colors.black26,
+                            )),
+                        onSubmitted: (text) {
+                          setState(() {
+                            todosList.add(text);
+                          });
+                          controllerTodo.clear();
+                          print('$todosList');
+                        },
+                      ))),
+              Expanded(child: _buildTodoList())
+            ])));
   }
 }
