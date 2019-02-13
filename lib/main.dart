@@ -75,6 +75,7 @@ class _TodoState extends State<Todo> {
               todosList[i],
               style: TextStyle(
                 fontSize: 18.0,
+                decoration: isDone[todosList[i]] ? TextDecoration.lineThrough : TextDecoration.none,
               ),
             ),
             value: isDone[todosList[i]],
