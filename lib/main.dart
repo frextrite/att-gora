@@ -40,25 +40,22 @@ class _TodoState extends State<Todo> {
 
   Widget _buildTodoList() {
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
       itemCount: todosList.length,
       itemBuilder: (context, i) {
         return Dismissible(
-          key: Key(todosList[i]),
-          onDismissed: (direction) {
-            Scaffold
-              .of(context)
-              .showSnackBar(SnackBar(content: Text(todosList[i]),));
-            setState(() {
-              todosList.removeAt(i);
-            });
-          },
-          child: ListTile(
-            title: Text(todosList[i]),
-          )
-        );
+            key: Key(todosList[i] + i.toString()),
+            onDismissed: (direction) {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(todosList[i]),
+              ));
+              setState(() {
+                todosList.removeAt(i);
+              });
+            },
+            child: ListTile(
+              title: Text(todosList[i]),
+            ));
       },
-        
     );
   }
 
@@ -68,24 +65,40 @@ class _TodoState extends State<Todo> {
         appBar: AppBar(
           title: Text('Todo'),
         ),
-        body: new Column(children: <Widget>[
-          TextField(
-            controller: controllerTodo,
-            focusNode: focusNewTodo,
-            decoration:
-                InputDecoration(border: InputBorder.none, hintText: 'att gora'),
-            onSubmitted: (text) {
-              setState(() {
-                todosList.add(text);
-              });
-              controllerTodo.clear();
-              print('$todosList');
-            },
+        body: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFEAEBE9),
           ),
-          // _buildTodoList(),
-          new Expanded(child: _buildTodoList())
-        ]
-      )
-    );
+          child: Column(children: <Widget>[
+          Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xFFD3D4D2),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(5.0)),
+                  child: TextField(
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black54,
+                    ),
+                    controller: controllerTodo,
+                    focusNode: focusNewTodo,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'att gora',
+                        hintStyle: TextStyle(
+                          color: Colors.black26,
+                        )),
+                    onSubmitted: (text) {
+                      setState(() {
+                        todosList.add(text);
+                      });
+                      controllerTodo.clear();
+                      print('$todosList');
+                    },
+                  ))),
+          Expanded(child: _buildTodoList())
+        ])));
   }
 }
