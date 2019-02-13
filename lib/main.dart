@@ -43,18 +43,21 @@ class _TodoState extends State<Todo> {
       itemCount: todosList.length,
       itemBuilder: (context, i) {
         return Dismissible(
-            key: Key(todosList[i] + i.toString()),
-            onDismissed: (direction) {
-              Scaffold.of(context).showSnackBar(SnackBar(
+          key: Key(todosList[i] + i.toString()),
+          onDismissed: (direction) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
                 content: Text(todosList[i]),
-              ));
-              setState(() {
-                todosList.removeAt(i);
-              });
-            },
-            child: ListTile(
-              title: Text(todosList[i]),
-            ));
+              ),
+            );
+            setState(() {
+              todosList.removeAt(i);
+            });
+          },
+          child: ListTile(
+            title: Text(todosList[i]),
+          ),
+        );
       },
     );
   }
