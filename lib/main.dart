@@ -78,7 +78,7 @@ class _TodoState extends State<Todo> {
                 decoration: BoxDecoration(
                     color: Color(0xFFD3D4D2),
                     shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderRadius: BorderRadius.circular(10.0)),
                 child: TextField(
                   cursorColor: Colors.black38,
                   style: TextStyle(
