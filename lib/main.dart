@@ -89,7 +89,7 @@ class _TodoState extends State<Todo> {
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             border: InputBorder.none,
-                            hintText: 'att gora',
+                            hintText: 'What do you wish to do?',
                             hintStyle: TextStyle(
                               color: Colors.black26,
                             )),
