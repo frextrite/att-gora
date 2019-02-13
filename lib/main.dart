@@ -79,13 +79,15 @@ class _TodoState extends State<Todo> {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(5.0)),
                       child: TextField(
+                        cursorColor: Colors.black38,
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 20.0,
                           color: Colors.black54,
                         ),
                         controller: controllerTodo,
                         focusNode: focusNewTodo,
                         decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
                             border: InputBorder.none,
                             hintText: 'att gora',
                             hintStyle: TextStyle(
