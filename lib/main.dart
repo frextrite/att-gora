@@ -88,12 +88,13 @@ class _TodoState extends State<Todo> {
                   controller: controllerTodo,
                   focusNode: focusNewTodo,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      border: InputBorder.none,
-                      hintText: 'What do you wish to do?',
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      )),
+                    contentPadding: EdgeInsets.all(10.0),
+                    border: InputBorder.none,
+                    hintText: 'What do you wish to do?',
+                    hintStyle: TextStyle(
+                      color: Colors.black26,
+                    ),
+                  ),
                   onSubmitted: (text) {
                     setState(() {
                       todosList.add(text);
@@ -107,6 +108,12 @@ class _TodoState extends State<Todo> {
             Expanded(child: _buildTodoList())
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          FocusScope.of(context).requestFocus(focusNewTodo);
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
