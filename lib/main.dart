@@ -19,7 +19,6 @@ class Todo extends StatefulWidget {
 }
 
 class _TodoState extends State<Todo> {
-  String _lastDeleted;
   List<String> todosList;
   Map<String, bool> isDone;
   FocusNode focusNewTodo;
@@ -29,7 +28,6 @@ class _TodoState extends State<Todo> {
   void initState() {
     super.initState();
     isDone = {};
-    _lastDeleted = '';
     todosList = [];
     focusNewTodo = FocusNode();
     controllerTodo = TextEditingController();
@@ -60,16 +58,16 @@ class _TodoState extends State<Todo> {
         return Dismissible(
           key: Key(todosList[i] + i.toString()),
           onDismissed: (direction) {
+            String _deletedTodo = todosList[i];
             Scaffold.of(context).showSnackBar(
               SnackBar(
                 content: Text(todosList[i]),
                 action: SnackBarAction(
                   label: 'Undo',
                   onPressed: () {
-                    if (_lastDeleted != '') {
+                    if (_deletedTodo != null) {
                       setState(() {
-                        todosList.add(_lastDeleted);
-                        _lastDeleted = '';
+                        todosList.add(_deletedTodo);
                       });
                     }
                   },
@@ -77,7 +75,6 @@ class _TodoState extends State<Todo> {
               ),
             );
             setState(() {
-              _lastDeleted = todosList[i];
               todosList.removeAt(i);
             });
           },
