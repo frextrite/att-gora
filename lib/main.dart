@@ -47,7 +47,7 @@ class _TodoState extends State<Todo> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       todosList = preferences.getStringList('todosList') ?? [];
-      for(String todo in todosList) {
+      for (String todo in todosList) {
         isDone[todo] = preferences.getBool(todo) ?? false;
       }
     });
@@ -87,11 +87,16 @@ class _TodoState extends State<Todo> {
               todosList[i],
               style: TextStyle(
                 fontSize: 18.0,
-                decoration: isDone[todosList[i]] ? TextDecoration.lineThrough : TextDecoration.none,
+                decoration: isDone[todosList[i]]
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
               ),
             ),
             value: isDone[todosList[i]],
-            onChanged: (value) {
+            onChanged: (value) async {
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.setBool(todosList[i], value);
               setState(() {
                 isDone[todosList[i]] = value;
               });
@@ -139,10 +144,11 @@ class _TodoState extends State<Todo> {
                     ),
                   ),
                   onSubmitted: (text) async {
-                    SharedPreferences preferences = await SharedPreferences.getInstance();
+                    SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
                     setState(() {
                       todosList = preferences.getStringList('todosList') ?? [];
-                      for(String todo in todosList) {
+                      for (String todo in todosList) {
                         isDone[todo] = preferences.getBool(todo) ?? false;
                       }
                       todosList.add(text);
