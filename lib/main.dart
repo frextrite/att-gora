@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(TodoApp());
 
@@ -33,6 +33,7 @@ class _TodoState extends State<Todo> {
     todosList = [];
     focusNewTodo = FocusNode();
     controllerTodo = TextEditingController();
+    _loadPersistent();
   }
 
   @override
@@ -40,6 +41,16 @@ class _TodoState extends State<Todo> {
     controllerTodo.dispose();
     focusNewTodo.dispose();
     super.dispose();
+  }
+
+  _loadPersistent() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      todosList = preferences.getStringList('todosList') ?? [];
+      for (String todo in todosList) {
+        isDone[todo] = preferences.getBool(todo) ?? false;
+      }
+    });
   }
 
   Widget _buildTodoList() {
@@ -76,11 +87,16 @@ class _TodoState extends State<Todo> {
               todosList[i],
               style: TextStyle(
                 fontSize: 18.0,
-                decoration: isDone[todosList[i]] ? TextDecoration.lineThrough : TextDecoration.none,
+                decoration: isDone[todosList[i]]
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
               ),
             ),
             value: isDone[todosList[i]],
-            onChanged: (value) {
+            onChanged: (value) async {
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.setBool(todosList[i], value);
               setState(() {
                 isDone[todosList[i]] = value;
               });
@@ -127,10 +143,18 @@ class _TodoState extends State<Todo> {
                       color: Colors.black26,
                     ),
                   ),
-                  onSubmitted: (text) {
+                  onSubmitted: (text) async {
+                    SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
                     setState(() {
+                      todosList = preferences.getStringList('todosList') ?? [];
+                      for (String todo in todosList) {
+                        isDone[todo] = preferences.getBool(todo) ?? false;
+                      }
                       todosList.add(text);
                       isDone[text] = false;
+                      preferences.setStringList('todosList', todosList);
+                      preferences.setBool(text, isDone[text]);
                     });
                     controllerTodo.clear();
                     print('$todosList');
